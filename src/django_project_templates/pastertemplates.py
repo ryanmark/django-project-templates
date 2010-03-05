@@ -23,7 +23,6 @@ def append_secret_key(vars):
         var('secret_key', 'Secret key', default=default_key)
     )
 
-
 def append_db_password(vars):
     default_key = ''.join([choice('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') for i in range(10)])
     vars.append(
