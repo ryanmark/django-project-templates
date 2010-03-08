@@ -1,5 +1,7 @@
 h4. News apps template
 
+"Blog post about this":http://blog.apps.chicagotribune.com/2010/03/08/advanced-django-project-layout/
+
 Clone this repository and run:
 
 pre. python setup.py install
