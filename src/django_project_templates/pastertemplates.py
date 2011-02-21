@@ -62,3 +62,7 @@ class NewsAppsProjectTemplate(DjangoTemplate):
         append_secret_key(self.vars)
         append_db_password(self.vars)
         super(NewsAppsProjectTemplate, self).__init__(name)
+
+class SimpleNewsAppsTemplate(NewsAppsProjectTemplate):
+    _template_dir = 'templates/simple_project'
+    summary = 'Simplified template for a News Application Django project'

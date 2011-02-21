@@ -16,7 +16,6 @@ setup(
         'setuptools',
         'PasteScript>=1.3',
         'Cheetah',
-        'fabric',
     ],
     include_package_data=True,
     zip_safe=False,
@@ -25,6 +24,7 @@ setup(
         django_project=django_project_templates.pastertemplates:DjangoProjectTemplate
         django_cruisecontrol_project=django_project_templates.pastertemplates:DjangoCruiseControlTemplate
         newsapps_project=django_project_templates.pastertemplates:NewsAppsProjectTemplate
+        simple_project=django_project_templates.pastertemplates:SimpleNewsAppsTemplate
     """,
     classifiers = [
         "Intended Audience :: Developers",
