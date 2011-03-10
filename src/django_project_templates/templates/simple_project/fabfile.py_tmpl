@@ -16,7 +16,7 @@ env.admin_media_prefix = "admin_media"
 env.path = '/home/newsapps/sites/%(project_name)s' % env
 env.log_path = '/home/newsapps/logs/%(project_name)s' % env
 env.env_path = '/home/newsapps/sites/virtualenvs/%(project_name)s' % env
-env.repo_path = '%(path)s/repository' % env
+env.repo_path = '%(path)s' % env
 env.apache_config_path = '/home/newsapps/sites/apache/%(project_name)s' % env
 env.python = 'python2.6'
 env.repository_url = "$(repository_url)"
@@ -96,9 +96,6 @@ def setup_directories():
     Create directories necessary for deployment.
     """
     run('mkdir -p %(path)s' % env)
-    run ('mkdir -p %(log_path)s;' % env)
-    sudo('chgrp -R www-data %(log_path)s; chmod -R g+w %(log_path)s;' % env)
-    run('ln -s %(log_path)s %(path)s/logs' % env)
     
 def setup_virtualenv():
     """
@@ -178,11 +175,11 @@ def deploy_to_s3():
     """
     Deploy the latest project site media to S3.
     """
-    env.media_path = '%(path)s/repository/media/' % env
-    run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(path)s/repository/s3exclude sync %(media_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
+    env.media_path = '%(repo_path)s/media/' % env
+    run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(repot_path)s/s3exclude sync %(media_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
 
-    env.gzip_path = '%(path)s/repository/gzip_media/' % env
-    run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(path)s/repository/s3exclude sync %(gzip_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
+    env.gzip_path = '%(repo_path)s/gzip_media/' % env
+    run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(repo_path)s/s3exclude sync %(gzip_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
        
 def reboot(): 
     """
@@ -265,7 +262,7 @@ def load_data():
     """
     Loads data from the repository into PostgreSQL.
     """
-    run('psql -q %(project_name)s < %(path)s/repository/data/psql/dump.sql' % env)
+    run('psql -q %(project_name)s < %(repo_path)s/data/psql/dump.sql' % env)
     
 def pgpool_down():
     """
@@ -339,7 +336,7 @@ def _execute_psql(query):
     Executes a PostgreSQL command using the command line interface.
     """
     env.query = query
-    run(('cd %(path)s/repository; psql -q %(project_name)s -c "%(query)s"') % env)
+    run(('cd %(repo_path)s; psql -q %(project_name)s -c "%(query)s"') % env)
     
 def _confirm_branch():
     if (env.settings == 'production' and env.branch != 'stable'):

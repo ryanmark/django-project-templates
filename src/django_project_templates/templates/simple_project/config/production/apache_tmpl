@@ -2,7 +2,7 @@
     ServerName $(project).$(production_domain)
     ServerAlias www.$(project).$(production_domain)
     
-    WSGIScriptAlias / /home/newsapps/sites/$(project)/repository/application.wsgi
+    WSGIScriptAlias / /home/newsapps/sites/$(project)/application.wsgi
     <Directory /home/newsapps/sites/$(project)/repository>
         Order deny,allow
         Allow from all
