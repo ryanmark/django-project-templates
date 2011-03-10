@@ -7,19 +7,19 @@ import site
 # Remember original sys.path.
 prev_sys_path = list(sys.path) 
 
-# Look for Virtual Envs
-if os.environ.has_key("VIRTUAL_ENV"):
-    env_path = os.environ["VIRTUAL_ENV"]
-if os.environ.has_key("WORKON_HOME"):
-    env_path = os.path.join(os.environ["WORKON_HOME"], $(project))
-else:
-    env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../env"))
+# Look for Virtual Env
+env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../virtualenvs/$(project)"))
 
 # Add our Virtual Env
 site.addsitedir(os.path.join(
     env_path,
     "lib/python%s/site-packages" % sys.version[:3]
 ))
+
+# Add our project
+sys.path.append(os.path.dirname(__file__))
+# and the parent directory
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
 # Reorder sys.path so new directories at the front.
 new_sys_path = [] 

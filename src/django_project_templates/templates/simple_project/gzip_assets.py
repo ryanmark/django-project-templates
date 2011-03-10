@@ -21,7 +21,8 @@ for path, dirs, files in os.walk('media'):
     
         src_path = os.path.join(path, filename)
         dest_path = 'gzip_'+src_path
-        os.makedirs(os.path.dirname(dest_path))
+        if not os.path.exists(os.path.dirname(dest_path)):
+            os.makedirs(os.path.dirname(dest_path))
 
         f_in = open(src_path, 'rb')
         contents = f_in.read()
