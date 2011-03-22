@@ -1,5 +1,6 @@
 fabric==0.9.0
--e django
+# -e django # install stable django
+-e svn+http://code.djangoproject.com/svn/django/trunk/#egg=django #install development django
 geopy
 django-debug-toolbar
 psycopg2
