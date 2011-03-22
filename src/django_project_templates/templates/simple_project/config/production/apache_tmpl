@@ -2,6 +2,7 @@
     ServerName $(project).$(production_domain)
     ServerAlias www.$(project).$(production_domain)
     
+    SetEnv DEPLOYMENT_TARGET production
     WSGIScriptAlias / /home/newsapps/sites/$(project)/application.wsgi
     <Directory /home/newsapps/sites/$(project)/repository>
         Order deny,allow

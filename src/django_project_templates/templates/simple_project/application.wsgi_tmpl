@@ -32,14 +32,21 @@ sys.path[:0] = new_sys_path
 #redirecting stdout to stderr cuz geopy uses print statements
 sys.stdout = sys.stderr
 
-# Discover our settings file
-if not os.environ.has_key("DJANGO_SETTINGS_MODULE"):
-    if not os.environ.has_key("DEPLOYMENT_TARGET"):
-        os.environ["DJANGO_SETTINGS_MODULE"] = "config.settings"
-    else:
-        os.environ["DJANGO_SETTINGS_MODULE"] = "config.%s.settings" % os.environ["DEPLOYMENT_TARGET"]
-
 # Fire up the WSGI
-from django.core.handlers.wsgi import WSGIHandler
-application = WSGIHandler()
+import django.core.handlers.wsgi
+_application = django.core.handlers.wsgi.WSGIHandler()
+
+# We have to setup our own wsgi handler so we can grab environment
+# variables from apache.
+def application(environ, start_response):
+
+    # Discover our settings file
+    if not os.environ.has_key("DJANGO_SETTINGS_MODULE"):
+        if not environ.has_key("DEPLOYMENT_TARGET"):
+            os.environ["DJANGO_SETTINGS_MODULE"] = "config.settings"
+        else:
+            os.environ["DJANGO_SETTINGS_MODULE"] = "config.%s.settings" % environ["DEPLOYMENT_TARGET"]
+    
+    return _application(environ, start_response)
+
 

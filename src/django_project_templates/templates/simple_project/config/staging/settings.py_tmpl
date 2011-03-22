@@ -14,6 +14,11 @@ DATABASES['default']['PASSWORD'] = '$(db_password)'
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = 'http://media.$(staging_domain)/$(project)/site_media/'
 
+# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
+# trailing slash.
+# Examples: "http://foo.com/media/", "/media/".
+ADMIN_MEDIA_PREFIX = 'http://media.$(staging_domain)/$(project)/admin_media/'
+
 # Predefined domain
 MY_SITE_DOMAIN = '$(project).$(staging_domain)'
 
@@ -32,5 +37,5 @@ INTERNAL_IPS = ()
 
 # logging
 import logging.config
-LOG_FILENAME = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logging.conf')
+LOG_FILENAME = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'logger.conf')
 logging.config.fileConfig(LOG_FILENAME)
