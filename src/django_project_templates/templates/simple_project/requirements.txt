@@ -1,6 +1,5 @@
-fabric==0.9.0
--e django # install stable django
-# -e git+https://github.com/django/django.git#egg=django #install development django
+-e git+https://github.com/django/django.git@1.3#egg=django
+fabric==1.0.0
 geopy
 django-debug-toolbar
 psycopg2
