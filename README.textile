@@ -1,3 +1,13 @@
+h4. Update: New template!
+
+I added a new template layout. It's much simpler than the News Apps template; very similar to Django's out-of-the-box project layout. It follows the default pattern, but includes all the fancy extra stuff you need to deploy your project as a wsgi application in separate staging and production environments.
+
+To use the simple project template, follow the installation instructions below and then create a new project:
+
+pre. paster create --template=simple_project exampleproject
+
+When you name your project, use alphanumeric characters only. The project name is used throughout the template for things such as database usernames and python packages, so it has to be über-compatible. If you have a special database name or something you have to use, don't fret, you can customize all the settings. We just like opinionated software.
+
 h4. News apps template
 
 "Blog post about this":http://blog.apps.chicagotribune.com/2010/03/08/advanced-django-project-layout/
@@ -10,7 +20,7 @@ It will install PasteScript, Cheetah and Fabric. So you may want to create a new
 
 Once installed, run:
 
-pre. paster create --template=newsapps_project example_project
+pre. paster create --template=newsapps_project exampleproject
 
 The newsapps_project template is very similar to django_project. Major differences include: 
 * A much larger "fabric deployment script with a bunch of goodies":http://blog.apps.chicagotribune.com/2010/02/10/refactoring-fabric/
