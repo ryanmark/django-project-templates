@@ -31,15 +31,14 @@ def append_db_password(vars):
         var('db_password', 'DB Password', default=default_key)
     )
 
-
 class DjangoProjectTemplate(DjangoTemplate):
     _template_dir = 'templates/django_project'
     summary = 'Template for a Django project'
-    
+
     def __init__(self, name):
         append_secret_key(self.vars)
         super(DjangoProjectTemplate, self).__init__(name)
-        
+
 class DjangoCruiseControlTemplate(Template):
     _template_dir = 'templates/django_cruisecontrol_project'
     summary = 'CruiseControl Template for a Django project'
