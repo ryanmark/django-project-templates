@@ -2,6 +2,8 @@ from paste.script.templates import Template
 from paste.script.templates import var
 from random import choice
 
+import re
+
 class DjangoTemplate(Template):
 
     vars = [
@@ -61,6 +63,8 @@ class NewsAppsProjectTemplate(DjangoTemplate):
     def __init__(self, name):
         append_secret_key(self.vars)
         append_db_password(self.vars)
+        if re.search(r'[^a-zA-Z0-9]', name):
+            raise Exception('Use only alphanumeric characters for your project name')
         super(NewsAppsProjectTemplate, self).__init__(name)
 
 class SimpleNewsAppsTemplate(NewsAppsProjectTemplate):

@@ -102,7 +102,7 @@ def setup_virtualenv():
     Setup a fresh virtualenv.
     """
     run('virtualenv -p %(python)s --no-site-packages %(env_path)s;' % env)
-    run('source %(env_path)s/bin/activate; easy_install -U setuptools; easy_install -U pip;' % env)
+    run('source %(env_path)s/bin/activate; %(env_path)s/bin/easy_install -U setuptools; %(env_path)s/bin/easy_install -U pip;' % env)
 
 def clone_repo():
     """
@@ -176,7 +176,7 @@ def deploy_to_s3():
     Deploy the latest project site media to S3.
     """
     env.media_path = '%(repo_path)s/media/' % env
-    run(('s3cmd -P --guess-mime-type --rexclude-from=%(repot_path)s/s3exclude sync %(media_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
+    run(('s3cmd -P --guess-mime-type --rexclude-from=%(repo_path)s/s3exclude sync %(media_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
 
     env.gzip_path = '%(repo_path)s/gzip_media/' % env
     run(('s3cmd -P --add-header=Content-encoding:gzip --guess-mime-type --rexclude-from=%(repo_path)s/s3exclude sync %(gzip_path)s s3://%(s3_bucket)s/%(project_name)s/%(site_media_prefix)s/') % env)
